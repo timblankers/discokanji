@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Disco Kanji</h1>
+    <KanjiConstruct />
+    <KanjiResults :amount=5 />
+    <KanjiDetails />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import KanjiConstruct from './components/KanjiConstruct.vue'
+import KanjiResults from './components/KanjiResults.vue'
+import KanjiDetails from './components/KanjiDetails.vue'
+
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    KanjiConstruct,
+    KanjiResults,
+    KanjiDetails
   }
 }
 </script>
@@ -22,7 +29,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #686963;
 }
 </style>
