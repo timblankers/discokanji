@@ -2,14 +2,16 @@
   <div class="construct">
     <h3>Choose radicals</h3>
     <ul id="radicals">
-      <li v-for="kanji in kanji1">
-        <a>{{ kanji.radical }}</a>
+      <li v-for="radical in radicals" :key="radical._id">
+        <a>{{ radical.radical }}</a>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "KanjiConstruct",
   props: {
@@ -17,19 +19,15 @@ export default {
   },
   data() {
     return {
-      kanji1: [
-        { radical: "一" },
-        { radical: "丨" },
-        { radical: "丶" },
-        { radical: "ノ" },
-        { radical: "乙" },
-        { radical: "乚" },
-        { radical: "亅" },
-        { radical: "𠃊" },
-        { radical: "ㄋ" },
-        { radical: "㇇" }
-      ]
+      radicals: ""
     };
+  },
+  created() {
+    axios.get("http://localhost:3000/radicals")
+      .then(response => (this.radicals = response.data))
+      .catch(e => {
+        this.errors.push(e);
+      })
   }
 };
 </script>
