@@ -5,6 +5,8 @@ var db = require('./db');
 
 app.use(cors())
 
+var KanjiController = require('./kanji/KanjiController');
+app.use('/kanji', KanjiController);
 var RadicalController = require('./radical/RadicalController');
 app.use('/radicals', RadicalController);
 

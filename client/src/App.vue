@@ -1,34 +1,23 @@
 <template>
-  <div id="app">
-    <h1>Disco Kanji</h1>
-    <KanjiConstruct />
-    <KanjiResults :amount=5 />
-    <KanjiDetails />
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <disco-kanji></disco-kanji>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import KanjiConstruct from './components/KanjiConstruct.vue'
-import KanjiResults from './components/KanjiResults.vue'
-import KanjiDetails from './components/KanjiDetails.vue'
-
+import DiscoKanji from "./components/DiscoKanji.vue";
 
 export default {
-  name: 'app',
   components: {
-    KanjiConstruct,
-    KanjiResults,
-    KanjiDetails
+    discoKanji: DiscoKanji
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #686963;
-}
+
 </style>

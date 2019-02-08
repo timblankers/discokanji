@@ -6,6 +6,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue);
 
+export const eventBus = new Vue({
+  methods: {
+    updateRadicals(radicals) {
+      this.$emit('radicalsWereUpdated', radicals);
+    }
+  }
+})
 
 Vue.config.productionTip = false
 

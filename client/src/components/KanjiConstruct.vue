@@ -16,6 +16,7 @@
 
 <script>
 import axios from "axios";
+import { eventBus } from '../main';
 
 export default {
   name: "KanjiConstruct",
@@ -41,7 +42,8 @@ export default {
       this.selectedStrokeCount = true;
     },
     addRadical: function(radical) {
-      this.selectedRadicals.push(radical);
+      this.selectedRadicals.push(radical.radical);
+      eventBus.updateRadicals(this.selectedRadicals);
       this.selectedStrokeCount = false;
     }
   },
@@ -58,9 +60,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.construct {
-  background-color: #e3f2fd;
-}
 ul {
   list-style-type: none;
   margin: 0;
@@ -76,6 +75,6 @@ li {
 }
 
 .button:hover {
-  background-color: #8aa29e;
+  background-color: gray;
 }
 </style>
