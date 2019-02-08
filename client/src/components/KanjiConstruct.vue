@@ -1,10 +1,15 @@
 <template>
   <div class="construct">
     <h3>Choose radicals</h3>
-    <ul id="radicals">
-      <li v-for="radical in radicals" :key="radical._id">
-        <a>{{ radical.radical }}</a>
+    <ul class="radical-count" v-if="!selectedStrokeCount">
+      <li v-for="n in 15" :key="n" v-on:click="showRadicals(n)" class="button">
+        {{ n }}
       </li>
+    </ul>
+    <ul class="radicals" v-if="selectedStrokeCount">
+      <li v-for="radical in filteredRadicals" :key="radical._id" v-on:click="addRadical(radical)" class="button">
+        {{ radical.radical }}
+    </li>
     </ul>
   </div>
 </template>
@@ -19,15 +24,34 @@ export default {
   },
   data() {
     return {
-      radicals: ""
+      radicals: "",
+      selectedStrokeCount: false,
+      strokeCount: 0,
+      selectedRadicals: []
     };
   },
+  computed: {
+    filteredRadicals: function() {
+      return this.radicals.filter(radical => radical.strokes == this.strokeCount);
+    }
+  },
+  methods: {
+    showRadicals: function(strokeCount) {
+      this.strokeCount = strokeCount;
+      this.selectedStrokeCount = true;
+    },
+    addRadical: function(radical) {
+      this.selectedRadicals.push(radical);
+      this.selectedStrokeCount = false;
+    }
+  },
   created() {
-    axios.get("http://localhost:3000/radicals")
+    axios
+      .get("http://localhost:3000/radicals")
       .then(response => (this.radicals = response.data))
       .catch(e => {
         this.errors.push(e);
-      })
+      });
   }
 };
 </script>
@@ -46,17 +70,12 @@ ul {
 
 li {
   float: left;
-}
-
-li a {
   display: block;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  height: 40px;
+  width: 40px;
 }
 
-/* Change the link color to #111 (black) on hover */
-li a:hover {
+.button:hover {
   background-color: #8aa29e;
 }
 </style>
