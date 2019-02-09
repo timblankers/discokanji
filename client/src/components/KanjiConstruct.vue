@@ -1,22 +1,23 @@
 <template>
   <div class="construct">
-    <h3>Choose radicals</h3>
+    <p>Radical Stroke Count</p>
     <ul class="radical-count" v-if="!selectedStrokeCount">
-      <li v-for="n in 15" :key="n" v-on:click="showRadicals(n)" class="button">
-        {{ n }}
-      </li>
+      <li v-for="n in 15" :key="n" v-on:click="showRadicals(n)" class="button">{{ n }}</li>
     </ul>
     <ul class="radicals" v-if="selectedStrokeCount">
-      <li v-for="radical in filteredRadicals" :key="radical._id" v-on:click="addRadical(radical)" class="button">
-        {{ radical.radical }}
-    </li>
+      <li
+        v-for="radical in filteredRadicals"
+        :key="radical._id"
+        v-on:click="addRadical(radical)"
+        class="button"
+      >{{ radical.radical }}</li>
     </ul>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { eventBus } from '../main';
+import { eventBus } from "../main";
 
 export default {
   name: "KanjiConstruct",
@@ -33,7 +34,9 @@ export default {
   },
   computed: {
     filteredRadicals: function() {
-      return this.radicals.filter(radical => radical.strokes == this.strokeCount);
+      return this.radicals.filter(
+        radical => radical.strokes == this.strokeCount
+      );
     }
   },
   methods: {
@@ -72,6 +75,10 @@ li {
   display: block;
   height: 40px;
   width: 40px;
+  background-color: #cdb79e;
+  text-align: center;
+  font-size: 25px;
+  margin: 1px;
 }
 
 .button:hover {

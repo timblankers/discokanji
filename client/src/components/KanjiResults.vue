@@ -1,5 +1,6 @@
 <template>
-  <div class="results">Filtering on Radicals:
+  <div class="results">
+    <p>Filtering on Radicals</p>
     <ul class="all-radicals">
       <li v-for="radical in radicals" :key="radical._id">{{ radical }}</li>
     </ul>
@@ -36,7 +37,7 @@ export default {
           kanji => kanji.radicals.some(radical => this.radicals.indexOf(radical) > -1)
         );
       } else {
-        return this.allKanji;
+        return [];
       }
     }
   },

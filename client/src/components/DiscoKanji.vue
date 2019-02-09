@@ -1,6 +1,5 @@
 <template>
   <div class="component">
-    <h1>Disco Kanji</h1>
     <div class="row">
       <div class="col-xs-12 col-sm-12">
         <kanji-construct></kanji-construct>
