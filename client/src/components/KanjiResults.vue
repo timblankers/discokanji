@@ -43,7 +43,7 @@ export default {
   },
   created() {
     axios
-      .get("http://localhost:3000/kanji")
+      .get("http://localhost:8081/kanji")
       .then(response => (this.allKanji = response.data))
       .catch(e => {
         this.errors.push(e);

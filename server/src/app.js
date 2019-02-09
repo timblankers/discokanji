@@ -3,7 +3,7 @@ var cors = require('cors');
 var app = express();
 var db = require('./db');
 
-app.use(cors())
+app.use(cors());
 
 var KanjiController = require('./kanji/KanjiController');
 app.use('/kanji', KanjiController);

@@ -52,7 +52,7 @@ export default {
   },
   created() {
     axios
-      .get("http://localhost:3000/radicals")
+      .get("http://localhost:8081/radicals")
       .then(response => (this.radicals = response.data))
       .catch(e => {
         this.errors.push(e);
