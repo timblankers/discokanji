@@ -1,27 +1,33 @@
 <template>
   <div class="details">
-    <h3>Details</h3>
-    <h3>{{kanji}}</h3>
-    <h3>りゅう</h3>
-    <ol>
-      <li>dragon</li>
-      <li>naga</li>
-      <li>promoted rook</li>
-      <li>Chinese dragon</li>      
-    </ol>
+    <h3>{{ kanji }}</h3>
+    <ul v-if="kanji">
+      <li><a v-bind:href="jisho">Jisho</a></li>
+    </ul>
   </div>
 </template>
 
 <script>
+import { eventBus } from "../main";
+
 export default {
   name: 'KanjiDetails',
-  props: {
-    kanji: String
+  data() {
+    return {
+      kanji: String,
+      jisho: String
+    };
+  },
+  created() {
+    this.kanji = "";
+    eventBus.$on("kanjiWasUpdated", kanji => {
+      this.kanji = kanji.kanji;
+      this.jisho = "https://jisho.org/search/" + this.kanji;
+    })
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>

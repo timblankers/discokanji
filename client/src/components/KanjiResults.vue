@@ -6,7 +6,7 @@
     </ul>
     <hr>
     <ul class="all-kanji">
-      <li v-for="kanji in filteredKanji" :key="kanji._id">{{ kanji.kanji }}</li>
+      <li class="button" v-on:click="selectKanji(kanji)" v-for="kanji in filteredKanji" :key="kanji._id">{{ kanji.kanji }}</li>
     </ul>
   </div>
 </template>
@@ -45,6 +45,9 @@ export default {
     clearRadicals: function() {
       this.radicals = [];
       eventBus.updateRadicals([]);
+    },
+    selectKanji: function(kanji) {
+      eventBus.updateKanji(kanji);
     }
   },
   created() {
@@ -75,5 +78,12 @@ li {
   display: block;
   height: 40px;
   width: 40px;
+  text-align: center;
+  font-size: 25px;
+  margin: 1px;
+}
+
+.button:hover {
+  background-color: gray;
 }
 </style>

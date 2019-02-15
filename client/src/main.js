@@ -10,6 +10,9 @@ export const eventBus = new Vue({
   methods: {
     updateRadicals(radicals) {
       this.$emit('radicalsWereUpdated', radicals);
+    },
+    updateKanji(kanji) {
+      this.$emit('kanjiWasUpdated', kanji);
     }
   }
 })
