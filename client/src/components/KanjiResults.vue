@@ -1,6 +1,6 @@
 <template>
   <div class="results">
-    <p>Filtering on Radicals</p>
+    <p>Filtering on Radicals - <a href="#" v-on:click="clearRadicals()">clear</a></p>
     <ul class="all-radicals">
       <li v-for="radical in radicals" :key="radical._id">{{ radical }}</li>
     </ul>
@@ -34,11 +34,17 @@ export default {
     filteredKanji: function() {
       if (this.radicals.length > 0) {
         return this.allKanji.filter(
-          kanji => kanji.radicals.some(radical => this.radicals.indexOf(radical) > -1)
+          kanji => this.radicals.every(selectedRadical => kanji.radicals.indexOf(selectedRadical) > -1)
         );
       } else {
         return [];
       }
+    }
+  },
+  methods: {
+    clearRadicals: function() {
+      this.radicals = [];
+      eventBus.updateRadicals([]);
     }
   },
   created() {

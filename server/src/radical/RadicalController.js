@@ -34,8 +34,9 @@ router.get('/populate', function (req, res) {
     fs.readFile(__dirname + '/radicals.json', 'utf8', function (err, data) {
         if (err) return res.status(500).send("There was a problem" + err);
         radicals = JSON.parse(data);
+        console.log("Inserting Radicals...");
         for (var radical of Object.keys(radicals)) {
-            console.log("inserting: " + radical + ", strokes: " + radicals[radical].strokes);
+            // console.log("inserting: " + radical + ", strokes: " + radicals[radical].strokes);
             Radical.create({
                 radical: radical,
                 strokes: radicals[radical].strokes
@@ -44,6 +45,7 @@ router.get('/populate', function (req, res) {
                     if (err) return res.status(500).send("There was a problem adding the information to the database.");
                 });
         }
+        console.log("...done");
         res.status(200).send("Database populated successfully");
     });
 });

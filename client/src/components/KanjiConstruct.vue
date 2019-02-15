@@ -5,6 +5,7 @@
       <li v-for="n in 15" :key="n" v-on:click="showRadicals(n)" class="button">{{ n }}</li>
     </ul>
     <ul class="radicals" v-if="selectedStrokeCount">
+      <li class="button" v-on:click="hideRadicals()">&larr;</li>
       <li
         v-for="radical in filteredRadicals"
         :key="radical._id"
@@ -21,9 +22,6 @@ import { eventBus } from "../main";
 
 export default {
   name: "KanjiConstruct",
-  props: {
-    msg: String
-  },
   data() {
     return {
       radicals: "",
@@ -44,6 +42,9 @@ export default {
       this.strokeCount = strokeCount;
       this.selectedStrokeCount = true;
     },
+    hideRadicals: function() {
+      this.selectedStrokeCount = false;
+    },
     addRadical: function(radical) {
       this.selectedRadicals.push(radical.radical);
       eventBus.updateRadicals(this.selectedRadicals);
@@ -57,6 +58,9 @@ export default {
       .catch(e => {
         this.errors.push(e);
       });
+    eventBus.$on("radicalsWereUpdated", radicals => {
+      this.selectedRadicals = radicals;
+    });
   }
 };
 </script>

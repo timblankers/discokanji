@@ -26,20 +26,6 @@ import KanjiResults from "./KanjiResults.vue";
 import KanjiDetails from "./KanjiDetails.vue";
 
 export default {
-  data: function() {
-    return {
-      name: "Max",
-      age: 27
-    };
-  },
-  methods: {
-    changeName() {
-      this.name = "Anna";
-    },
-    resetName() {
-      this.name = "Max";
-    }
-  },
   components: {
     kanjiConstruct: KanjiConstruct,
     kanjiResults: KanjiResults,
