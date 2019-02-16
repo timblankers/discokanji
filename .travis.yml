@@ -1,24 +1,29 @@
 sudo: required
 
-dist: xenial
+services:
+  - docker
+
+before_install:
+  - docker build -t $DOCKER_USERNAME/discokanji-client ./client
+  - docker build -t $DOCKER_USERNAME/discokanji-server ./server
+  - docker images
 
 script:
-  - set -e
-  - docker-compose build
-  - docker-compose up -d
-  - set +e
+  - docker run --name client -v $(pwd)/client:/data $DOCKER_USERNAME/discokanji-client
+  - docker run --name server -v $(pwd)/server:/data $DOCKER_USERNAME/discokanji-server
   - docker exec $(docker container ls -f name=client -q) npm audit
   - docker exec $(docker container ls -f name=server -q) npm audit
 
 after_script:
-  - docker-compose down
+  - docker stop client
+  - docker stop server
 
 before_deploy:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
 deploy:
   provider: script
-  script: docker push discokanji_server && docker push discokanji_client
+  script: $DOCKER_USERNAME/discokanji-client && $DOCKER_USERNAME/discokanji-server
   on:
     branch: master
 
