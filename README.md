@@ -1,5 +1,7 @@
 # Disco Kanji
 
+[![Build Status](https://travis-ci.org/timblankers/discokanji.svg?branch=master)](https://travis-ci.org/timblankers/discokanji)
+
 Wondering what kanji that is? Discover it with this application!
 
 ## Getting Started
