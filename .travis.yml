@@ -1,13 +1,27 @@
 sudo: required
+
 dist: xenial
 
 script:
-    - set -e
-    - docker-compose build
-    - docker-compose up -d
-    - set +e
-    - docker exec $(docker container ls -f name=client -q) npm audit
-    - docker exec $(docker container ls -f name=server -q) npm audit
+  - set -e
+  - docker-compose build
+  - docker-compose up -d
+  - set +e
+  - docker exec $(docker container ls -f name=client -q) npm audit
+  - docker exec $(docker container ls -f name=server -q) npm audit
 
 after_script:
-- docker-compose down
+  - docker-compose down
+
+before_deploy:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+deploy:
+  provider: script
+  script: docker push $DOCKER_USERNAME/discokanji_server && docker push $DOCKER_USERNAME/discokanji_client
+  on:
+    branch: master
+
+env:
+  matrix:
+    secure: JQxgmFdX03s/XCVtXoNKhHOGj2yAeqSNK0qbeNGhQsEC2NHdlTBh1ub96v5adbaCzhFjjlX7hcpb8AhQ/eGKrLoV7/H3JA/f7ZoGD10scs1kK7T5deNEAZKsNu9pZUC+OHYbhgGS5N/feuH86KH31AWx0kbLZ1xXmL01uDcIW8eNSfdOQiBrMrbkKIulAIHJ/vaZTkddCASQpuRQCdrvD5urakpjQ/FU14GKwwySXd2MSV+f3d+F6FcrqBs35/i/HBFdcv8FysVHRic9BxKo8ORtwH1BwZCcSZBT+vmcomDlIZDcg5fkTrEG7mOoXqTbvhzRzTIcEzCnTP50pgHrpPgLVQH0OkkoIaixsyHCp50ZY+ZyvtOWZPDtDsXJ/q2Uyyz9s9h17BELYC6P3iYzA5HmZ5RWuLP2KvHbYuPCqwSLISKKCVZQaBR2CYxMugRm4vS8hmaUqAv4NLsUoyMvrv7fketQkam+jZoA/v5ApBA8NNhuzT6XvFbI3f7aXIhfT96/EMHNc809QblyYiDC9wUGdd9YuMLVrIFPzad6Y54fR16jXSSgCeBS0MZP8XPKvq8dmZ42gVG/II1XJivtMIeDWXR9Y4Rm+AzwpbM3TYvGqMq+6UhFefn8+0U8wxucY2+Sh99CwO4qliCryyJA37im1JPxKBKDcZ8x6gU7VIo=
