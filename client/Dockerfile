@@ -1,14 +1,11 @@
-FROM node:carbon
+FROM node:lts-alpine AS build-stage
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-COPY ./docker/entrypoint.sh /entrypoint/
-
-RUN ["chmod", "+x", "entrypoint/entrypoint.sh"]
-
-# Copy or mount node app here
-WORKDIR /data/
-
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /usr/src/app/dist /usr/share/nginx/html
 EXPOSE 8080
-
-ENTRYPOINT ["/entrypoint/entrypoint.sh"]
-
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
